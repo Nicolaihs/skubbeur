@@ -1,0 +1,30 @@
+# End of the countdown period, "HH:MM" (today, 24h clock).
+end_time: "13:29"
+
+# Played on SPACE when no slot is currently active.
+fallback_sound: "assets/sounds/fister.wav"
+
+# Played repeatedly (every 5-20s, at random) for 5 minutes after end_time.
+siren_sound: "assets/sounds/afsted.wav"
+
+# Slots are only shown during the last hour before end_time.
+# start/end are minutes before end_time (60 = 1 hour before, 0 = at end_time).
+# Each slot's image is placed outside the clock face at its midpoint time.
+# Pressing SPACE plays the sound of whichever slot's start/end contains "now".
+slots:
+  - start: 60
+    end: 35
+    image: "https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExdXRlamRtMHYyZjF1dzh3bzY2bmxzZ2RkM3VkenA3OTd3eDh2MnAyMCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/d2ItDZZumUI6Y/giphy.gif"
+    sound: "assets/sounds/spis.wav"
+  - start: 35
+    end: 25
+    image: "https://picsum.photos/id/238/200"
+    sound: "assets/sounds/toej.wav"
+  - start: 25
+    end: 10
+    image: "https://picsum.photos/id/238/200"
+    sound: "assets/sounds/paktaske.wav"
+  - start: 10
+    end: 1
+    image: "https://picsum.photos/id/238/200"
+    sound: "assets/sounds/sko.wav"
