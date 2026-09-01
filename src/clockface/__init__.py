@@ -94,7 +94,7 @@ def main() -> None:
 
         draw_face(screen, center, radius, red_fraction, end_angle, blink_visible)
         draw_ticks_and_numbers(screen, center, radius)
-        draw_slot_markers(screen, center, radius, config, images, red_fraction is not None)
+        draw_slot_markers(screen, center, radius, config, images, red_fraction is not None, pygame.time.get_ticks())
         draw_hands(screen, center, radius, now)
         pygame.display.flip()
 

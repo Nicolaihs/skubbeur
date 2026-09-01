@@ -6,6 +6,7 @@ from datetime import datetime
 
 import pygame
 
+from clockface.assets import SlotImage
 from clockface.config import Config
 from clockface.geometry import hand_angle_degrees, point_on_circle, slot_midpoint_angle
 
@@ -74,17 +75,19 @@ def draw_slot_markers(
     center: tuple[float, float],
     radius: float,
     config: Config,
-    images: dict[int, pygame.Surface],
+    images: dict[int, SlotImage],
     in_countdown: bool,
+    ticks_ms: int,
 ) -> None:
     if not in_countdown:
         return
     for index, slot in enumerate(config.slots):
-        image = images.get(index)
-        if image is None:
+        slot_image = images.get(index)
+        if slot_image is None:
             continue
         angle = slot_midpoint_angle(slot)
         marker_center = point_on_circle(center, radius + SLOT_MARKER_MARGIN + SLOT_MARKER_SIZE / 2, angle)
-        scaled = pygame.transform.smoothscale(image, (SLOT_MARKER_SIZE, SLOT_MARKER_SIZE))
+        frame = slot_image.current_frame(ticks_ms)
+        scaled = pygame.transform.smoothscale(frame, (SLOT_MARKER_SIZE, SLOT_MARKER_SIZE))
         rect = scaled.get_rect(center=marker_center)
         surface.blit(scaled, rect)
