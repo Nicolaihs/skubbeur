@@ -1,5 +1,12 @@
+# Optional title displayed in a large goofy font above the clock.
+# title: "Morgenrutine"
+
 # End of the countdown period, "HH:MM" (today, 24h clock).
+# If omitted, defaults to current time + total_time.
 end_time: "7:40"
+
+# Duration of the countdown timer in minutes (max: 60, default: 60).
+# total_time: 60
 
 # Played on SPACE when no slot is currently active.
 fallback_sound: "assets/sounds/fister2.wav"
