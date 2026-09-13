@@ -6,7 +6,7 @@ title: "Den automatiske lektiefar"
 # end_time: "7:40"
 
 # Duration of the countdown timer in minutes (max: 60, default: 60).
-total_time: 15
+total_time: 20
 
 # Played on SPACE when no slot is currently active.
 fallback_sound: "assets/sounds/fister2.wav"
