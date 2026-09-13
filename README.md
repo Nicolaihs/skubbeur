@@ -18,6 +18,11 @@ uv sync
 uv run clockface [path/to/config.yaml]   # defaults to ./config.yaml
 ```
 
+The `main` branch is published to GitHub Pages by
+`.github/workflows/pages.yml`. The browser build shows a chooser containing
+`config.yaml` and every `config_*.yaml` file. Select a configuration with the
+mouse or arrow keys and press Enter (or click an option) to start that clock.
+
 ## Configuration
 
 Edit `config.yaml`:

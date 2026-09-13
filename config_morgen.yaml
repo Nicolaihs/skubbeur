@@ -1,0 +1,41 @@
+# Optional title displayed in a large goofy font above the clock.
+# title: "Morgenrutine"
+
+# End of the countdown period, "HH:MM" (today, 24h clock).
+# If omitted, defaults to current time + total_time.
+end_time: "7:40"
+
+# Duration of the countdown timer in minutes (max: 60, default: 60).
+# total_time: 60
+
+# Played on SPACE when no slot is currently active.
+fallback_sound: "assets/sounds/fister2.wav"
+
+# Played repeatedly (every 5-20s, at random) for 5 minutes after end_time.
+siren_sound: "assets/sounds/afsted.wav"
+
+# Slots are only shown during the last hour before end_time.
+# start/end are minutes before end_time (60 = 1 hour before, 0 = at end_time).
+# Each slot's image is placed outside the clock face at its midpoint time.
+# Pressing SPACE plays the sound of whichever slot's start/end contains "now".
+slots:
+  - start: 60
+    end: 30
+    image: "https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExdXRlamRtMHYyZjF1dzh3bzY2bmxzZ2RkM3VkenA3OTd3eDh2MnAyMCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/d2ItDZZumUI6Y/giphy.gif"
+    sound: "assets/sounds/spis.wav"
+  - start: 30
+    end: 20
+    image: "https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExejJiNm41NW9oa3pjejR1MHBzcWZ2YWF3N2p3MndwenM5a2lvNXltZCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/aIoELeco8WWqquPDgI/giphy.gif"
+    sound: "assets/sounds/toej.wav"
+  - start: 20
+    end: 15
+    image: "https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExbHdxOHphMDg1NWg0aDdjandpOXc0Y2puMWZrZHZmdmFkaTQzamE4dCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/j1ovgbiiNs784/giphy.gif"
+    sound: "assets/sounds/tand.wav"
+  - start: 15
+    end: 6
+    image: "https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExbzl3Y244dmtoeHo0NnFsZTZlanJmYjYyY21ucDd6N2ZwNWcwMGV2ZCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/WfRKl3cFgTlLncIetD/giphy.gif"
+    sound: "assets/sounds/paktaske.wav"
+  - start: 6
+    end: 1
+    image: "https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExZzg3M2plZnNlOXcyN2U1NHE2MXZiaWZ3OGt6dmRraGFxeW5xMng3aCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/t9DUdE209JMLLlB5S3/giphy.gif"
+    sound: "assets/sounds/sko.wav"

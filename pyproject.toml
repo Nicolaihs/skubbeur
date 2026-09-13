@@ -15,7 +15,7 @@ dependencies = [
 ]
 
 [project.scripts]
-clockface = "clockface:main"
+clockface = "clockface.__main__:run"
 
 [build-system]
 requires = ["uv_build>=0.12.8,<0.13.0"]

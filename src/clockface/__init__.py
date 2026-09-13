@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import argparse
+import asyncio
 import random
 import sys
 from datetime import datetime
@@ -49,17 +50,76 @@ def _parse_args() -> argparse.Namespace:
     return parser.parse_args()
 
 
-def main() -> None:
+def _is_web() -> bool:
+    return sys.platform == "emscripten"
+
+
+def _web_config_paths() -> list[Path]:
+    paths = sorted(Path(".").glob("config_*.yaml"))
+    default_path = Path("config.yaml")
+    if default_path.exists():
+        paths.insert(0, default_path)
+    return paths
+
+
+async def _select_web_config(screen: pygame.Surface) -> Path:
+    config_paths = _web_config_paths()
+    if not config_paths:
+        raise FileNotFoundError("No config.yaml or config_*.yaml files found")
+
+    width, height = screen.get_size()
+    title_font = create_title_font(max(28, int(min(width, height) * 0.07)))
+    option_font = pygame.font.SysFont("sans", max(22, int(min(width, height) * 0.04)))
+    selected = 0
+    clock = pygame.time.Clock()
+
+    while True:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                raise SystemExit
+            if event.type == pygame.KEYDOWN:
+                if event.key in (pygame.K_UP, pygame.K_LEFT):
+                    selected = (selected - 1) % len(config_paths)
+                elif event.key in (pygame.K_DOWN, pygame.K_RIGHT):
+                    selected = (selected + 1) % len(config_paths)
+                elif event.key in (pygame.K_RETURN, pygame.K_SPACE):
+                    return config_paths[selected]
+            if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
+                for index in range(len(config_paths)):
+                    option_rect = pygame.Rect(0, 0, width * 0.8, option_font.get_height() + 24)
+                    option_rect.center = (width / 2, height * 0.42 + index * (option_rect.height + 12))
+                    if option_rect.collidepoint(event.pos):
+                        return config_paths[index]
+
+        screen.fill(BACKGROUND)
+        heading = title_font.render("Choose a clock", True, (245, 245, 245))
+        screen.blit(heading, heading.get_rect(center=(width / 2, height * 0.2)))
+        for index, config_path in enumerate(config_paths):
+            option_rect = pygame.Rect(0, 0, width * 0.8, option_font.get_height() + 24)
+            option_rect.center = (width / 2, height * 0.42 + index * (option_rect.height + 12))
+            color = (200, 30, 30) if index == selected else (60, 60, 60)
+            pygame.draw.rect(screen, color, option_rect, border_radius=8)
+            label = "Default" if config_path.name == "config.yaml" else config_path.stem.removeprefix("config_")
+            text = option_font.render(label, True, (245, 245, 245))
+            screen.blit(text, text.get_rect(center=option_rect.center))
+        pygame.display.flip()
+        clock.tick(FPS)
+        await asyncio.sleep(0)
+
+
+async def main() -> None:
     args = _parse_args()
 
     pygame.init()
     pygame.mixer.init()
 
-    screen = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
+    screen_flags = 0 if _is_web() else pygame.FULLSCREEN
+    screen = pygame.display.set_mode((960, 720) if _is_web() else (0, 0), screen_flags)
     pygame.display.set_caption("Clockface")
     clock = pygame.time.Clock()
 
-    config = load_config(args.config)
+    config_path = await _select_web_config(screen) if _is_web() else args.config
+    config = load_config(config_path)
     images = load_slot_images(config)
     sounds = load_slot_sounds(config)
     fallback_sound = load_fallback_sound(config)
@@ -116,6 +176,7 @@ def main() -> None:
         pygame.display.flip()
 
         clock.tick(FPS)
+        await asyncio.sleep(0)
 
     pygame.quit()
 
