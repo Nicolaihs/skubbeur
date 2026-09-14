@@ -12,7 +12,7 @@ from clockface.config import Slot
 def hand_angle_degrees(
     hour: int, minute: int, second: int, hand: Literal["hour", "minute", "second"]
 ) -> float:
-    """Degrees clockwise from 12 o'clock."""
+    """Degrees clockwise from 12 oclock."""
     if hand == "second":
         return second * 6
     if hand == "minute":
