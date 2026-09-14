@@ -35,7 +35,7 @@ def slot_midpoint_angle(slot: Slot) -> float:
 
 
 def _target_datetime(now: datetime, target_time: time) -> datetime:
-    """Combine target_time with now's date, adjusting for midnight wrap if needed."""
+    """Combine target_time with nows date, adjusting for midnight wrap if needed."""
     dt = now.replace(
         hour=target_time.hour,
         minute=target_time.minute,
