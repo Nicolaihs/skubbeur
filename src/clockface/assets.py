@@ -18,7 +18,7 @@ DEFAULT_FRAME_DURATION_MS = 100
 
 @dataclass
 class SlotImage:
-    """One or more frames of a slot's image, e.g. from an animated GIF."""
+    """One or more frames of a slots image, e.g. from an animated GIF."""
 
     frames: list[pygame.Surface]
     durations_ms: list[int]
