@@ -12,3 +12,7 @@ wheels/
 
 # Downloaded image cache
 .cache/
+
+# Pygbag web build staging area
+.pygbag-stage/
+web-stage/

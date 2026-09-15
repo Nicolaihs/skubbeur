@@ -48,7 +48,7 @@ class Slot:
         return moment >= self.start or moment <= self.end
 
     def midpoint_minutes(self) -> float:
-        """Minutes-past-midnight of the slots midpoint, for angle calculations."""
+        """Minutes-past-midnight of the slot's midpoint, for angle calculations."""
         start_minutes = self.start.hour * 60 + self.start.minute + self.start.second / 60
         end_minutes = self.end.hour * 60 + self.end.minute + self.end.second / 60
         if end_minutes < start_minutes:

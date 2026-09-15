@@ -29,13 +29,17 @@ jobs:
       - name: Install Pygbag
         run: python -m pip install pygbag
 
-      - name: Build browser app
+      - name: Stage app files
         run: |
-          mkdir -p build/web
-          pygbag --build --html --app_name clockface .
-          app_html=$(find build/web -maxdepth 1 -name '*.html' ! -name index.html -print -quit)
-          test -n "$app_html"
-          cp "$app_html" build/web/index.html
+          mkdir -p web-stage/clockface
+          cp main.py web-stage/clockface/
+          cp -R src web-stage/clockface/
+          cp -R assets web-stage/clockface/
+          cp config.yaml web-stage/clockface/ 2>/dev/null || true
+          cp config_*.yaml web-stage/clockface/ 2>/dev/null || true
+
+      - name: Build browser app
+        run: pygbag --build --disable-sound-format-error web-stage/clockface
 
       - name: Configure Pages
         uses: actions/configure-pages@v5
@@ -43,7 +47,7 @@ jobs:
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: build/web
+          path: web-stage/clockface/build/web
 
   deploy:
     needs: build
